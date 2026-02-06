@@ -1,0 +1,58 @@
+{
+  "name": "@dcyfr/ai-kubernetes",
+  "version": "0.1.0",
+  "description": "Kubernetes deployment template — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./manifests": {
+      "types": "./dist/manifests/index.d.ts",
+      "import": "./dist/manifests/index.js"
+    },
+    "./helm": {
+      "types": "./dist/helm/index.d.ts",
+      "import": "./dist/helm/index.js"
+    },
+    "./health": {
+      "types": "./dist/health/index.d.ts",
+      "import": "./dist/health/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils/index.d.ts",
+      "import": "./dist/utils/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "kubernetes",
+    "k8s",
+    "helm",
+    "deployment",
+    "manifests",
+    "dcyfr",
+    "ai",
+    "devops"
+  ],
+  "author": "DCYFR <hello@dcyfr.ai>",
+  "license": "MIT",
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.7.3",
+    "vitest": "^2.1.0",
+    "tsx": "^4.19.0"
+  }
+}
