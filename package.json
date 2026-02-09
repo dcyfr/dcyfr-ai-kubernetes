@@ -53,6 +53,10 @@
   ],
   "author": "DCYFR <hello@dcyfr.ai>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dcyfr/dcyfr-ai-kubernetes"
+  },
   "dependencies": {
     "zod": "^3.23.0"
   },
