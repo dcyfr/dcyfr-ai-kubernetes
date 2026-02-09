@@ -2,6 +2,8 @@
 
 **Production-ready Kubernetes deployment template** — Generate, validate, and manage K8s manifests and Helm charts programmatically with TypeScript. Build infrastructure as code with type safety and best practices built-in.
 
+> **📦 Starter Template** — This is a **starter template** for cloning, not an npm package. Use `git clone` or download the source to add Kubernetes deployment capabilities to your project. This package is marked `private: true` and is not published to npm.
+
 ## Features
 
 ### Manifest Generation
