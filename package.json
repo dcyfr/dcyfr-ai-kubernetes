@@ -1,6 +1,6 @@
 {
   "name": "@dcyfr/ai-kubernetes",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Kubernetes deployment toolkit — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
   "type": "module",
   "main": "dist/index.js",

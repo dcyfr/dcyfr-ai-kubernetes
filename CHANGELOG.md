@@ -1,5 +1,11 @@
 # @dcyfr/ai-kubernetes
 
+## 1.0.1
+
+### Patch Changes
+
+- bf87cc6: Test automated publishing workflow with Trusted Publishing
+
 ## 1.0.0
 
 ### Major Changes
