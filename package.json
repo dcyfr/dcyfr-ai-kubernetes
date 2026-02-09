@@ -1,7 +1,7 @@
 {
   "name": "@dcyfr/ai-kubernetes",
   "version": "1.0.0",
-  "description": "Kubernetes deployment template — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
+  "description": "Kubernetes deployment toolkit — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
