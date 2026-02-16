@@ -15,7 +15,7 @@ permissions:
   id-token: write
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: '24.13.0'
   NPM_CONFIG_PROVENANCE: true
 
 jobs:
@@ -73,7 +73,7 @@ jobs:
       
       - name: Add Copilot as Reviewer
         if: steps.changesets.outputs.pullRequestNumber
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const pr_number = ${{ steps.changesets.outputs.pullRequestNumber }};
