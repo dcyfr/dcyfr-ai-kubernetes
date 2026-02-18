@@ -6,13 +6,14 @@ on:
   pull_request:
     branches: [main]
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     continue-on-error: true  # Allow migration to proceed
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +27,8 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     continue-on-error: true  # Allow migration to proceed
     strategy:
       matrix:
