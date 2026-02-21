@@ -4,6 +4,47 @@
  * Handles the subset of YAML used in K8s manifests.
  */
 
+function serializeArray(arr: unknown[], indent: number): string {
+  if (arr.length === 0) return '[]';
+  const lines: string[] = [];
+  for (const item of arr) {
+    if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
+      const inner = toYAML(item, indent + 2);
+      const firstLineEnd = inner.indexOf('\n');
+      if (firstLineEnd === -1) {
+        lines.push(`${pad(indent)}- ${inner}`);
+      } else {
+        const first = inner.slice(0, firstLineEnd);
+        const rest = inner.slice(firstLineEnd + 1);
+        const indentedRest = rest.split('\n').map((l) => pad(2) + l).join('\n');
+        lines.push(`${pad(indent)}- ${first}\n${indentedRest}`);
+      }
+    } else {
+      lines.push(`${pad(indent)}- ${toYAML(item, indent + 2)}`);
+    }
+  }
+  return lines.join('\n');
+}
+
+function serializeObject(obj: Record<string, unknown>, indent: number): string {
+  const entries = Object.entries(obj).filter(([, v]) => v !== undefined);
+  if (entries.length === 0) return '{}';
+  const lines: string[] = [];
+  for (const [key, value] of entries) {
+    if (
+      typeof value === 'object' &&
+      value !== null &&
+      (Array.isArray(value) || Object.keys(value as object).length > 0)
+    ) {
+      lines.push(`${pad(indent)}${key}:`);
+      lines.push(toYAML(value, indent + 2));
+    } else {
+      lines.push(`${pad(indent)}${key}: ${toYAML(value, 0)}`);
+    }
+  }
+  return lines.join('\n');
+}
+
 /**
  * Serialize an object to YAML string
  */
@@ -12,53 +53,8 @@ export function toYAML(obj: unknown, indent = 0): string {
   if (typeof obj === 'boolean') return obj ? 'true' : 'false';
   if (typeof obj === 'number') return String(obj);
   if (typeof obj === 'string') return quoteString(obj);
-
-  if (Array.isArray(obj)) {
-    if (obj.length === 0) return '[]';
-    const lines: string[] = [];
-    for (const item of obj) {
-      if (typeof item === 'object' && item !== null && !Array.isArray(item)) {
-        const inner = toYAML(item, indent + 2);
-        const firstLineEnd = inner.indexOf('\n');
-        if (firstLineEnd === -1) {
-          lines.push(`${pad(indent)}- ${inner}`);
-        } else {
-          const first = inner.slice(0, firstLineEnd);
-          const rest = inner.slice(firstLineEnd + 1);
-          const indentedRest = rest
-            .split('\n')
-            .map((l) => pad(2) + l)
-            .join('\n');
-          lines.push(`${pad(indent)}- ${first}\n${indentedRest}`);
-        }
-      } else {
-        lines.push(`${pad(indent)}- ${toYAML(item, indent + 2)}`);
-      }
-    }
-    return lines.join('\n');
-  }
-
-  if (typeof obj === 'object') {
-    const entries = Object.entries(obj as Record<string, unknown>).filter(
-      ([, v]) => v !== undefined
-    );
-    if (entries.length === 0) return '{}';
-    const lines: string[] = [];
-    for (const [key, value] of entries) {
-      if (
-        typeof value === 'object' &&
-        value !== null &&
-        (Array.isArray(value) || Object.keys(value as object).length > 0)
-      ) {
-        lines.push(`${pad(indent)}${key}:`);
-        lines.push(toYAML(value, indent + 2));
-      } else {
-        lines.push(`${pad(indent)}${key}: ${toYAML(value, 0)}`);
-      }
-    }
-    return lines.join('\n');
-  }
-
+  if (Array.isArray(obj)) return serializeArray(obj, indent);
+  if (typeof obj === 'object') return serializeObject(obj as Record<string, unknown>, indent);
   return String(obj);
 }
 

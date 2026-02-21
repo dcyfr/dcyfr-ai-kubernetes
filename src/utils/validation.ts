@@ -11,6 +11,33 @@ export interface ValidationResult {
   warnings: string[];
 }
 
+type Container = Deployment['spec']['template']['spec']['containers'][number];
+
+function validateContainer(container: Container, errors: string[], warnings: string[]): void {
+  if (!container.name) errors.push('Container must have a name');
+  if (!container.image) errors.push('Container must have an image');
+
+  // Resource warnings
+  if (!container.resources) {
+    warnings.push(`Container '${container.name}' has no resource limits/requests`);
+  } else {
+    if (!container.resources.limits) {
+      warnings.push(`Container '${container.name}' has no resource limits`);
+    }
+    if (!container.resources.requests) {
+      warnings.push(`Container '${container.name}' has no resource requests`);
+    }
+  }
+
+  // Probe warnings
+  if (!container.livenessProbe) {
+    warnings.push(`Container '${container.name}' has no liveness probe`);
+  }
+  if (!container.readinessProbe) {
+    warnings.push(`Container '${container.name}' has no readiness probe`);
+  }
+}
+
 /**
  * Validate a Deployment manifest
  */
@@ -36,28 +63,7 @@ export function validateDeployment(deployment: Deployment): ValidationResult {
   }
 
   for (const container of deployment.spec.template.spec.containers) {
-    if (!container.name) errors.push('Container must have a name');
-    if (!container.image) errors.push('Container must have an image');
-
-    // Resource warnings
-    if (!container.resources) {
-      warnings.push(`Container '${container.name}' has no resource limits/requests`);
-    } else {
-      if (!container.resources.limits) {
-        warnings.push(`Container '${container.name}' has no resource limits`);
-      }
-      if (!container.resources.requests) {
-        warnings.push(`Container '${container.name}' has no resource requests`);
-      }
-    }
-
-    // Probe warnings
-    if (!container.livenessProbe) {
-      warnings.push(`Container '${container.name}' has no liveness probe`);
-    }
-    if (!container.readinessProbe) {
-      warnings.push(`Container '${container.name}' has no readiness probe`);
-    }
+    validateContainer(container, errors, warnings);
   }
 
   // Selector must match template labels
