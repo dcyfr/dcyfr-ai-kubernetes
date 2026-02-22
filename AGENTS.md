@@ -39,3 +39,8 @@ Test files mirror source structure: `tests/{types,manifests,helm,health,utils}.t
 - Modifier functions: `setY(resource, value) → Resource` (immutable)
 - Validation: `validateX(resource) → { valid, errors, warnings }`
 - YAML output: `toYAML(resource) → string`
+
+## Quality Gates
+- TypeScript: 0 errors (`npm run typecheck`)
+- Tests: ≥99% pass rate (`npm run test`)
+- Lint: 0 errors (`npm run lint`)
