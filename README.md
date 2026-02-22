@@ -661,7 +661,7 @@ npm run test:coverage
 
 ## Contributing
 
-Contributions welcome! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
+Contributions welcome! See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
 
 ## License
 
