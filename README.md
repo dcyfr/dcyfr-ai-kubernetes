@@ -1,5 +1,15 @@
 # @dcyfr/ai-kubernetes
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dcyfr/dcyfr-ai-kubernetes)
+
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-1.28+-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Helm](https://img.shields.io/badge/Helm-Charts-0F1689?style=flat-square&logo=helm&logoColor=white)](https://helm.sh/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
+[![YAML](https://img.shields.io/badge/Config-YAML-CB171E?style=flat-square&logo=yaml&logoColor=white)](https://yaml.org/)
+[![Template](https://img.shields.io/badge/Template-Starter-blue?style=flat-square&logo=github)](https://github.com/dcyfr)
+[![Sponsor](https://img.shields.io/badge/sponsor-30363D?style=flat-square&logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/dcyfr)
+[![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+
 **Production-ready Kubernetes deployment template** — Generate, validate, and manage K8s manifests and Helm charts programmatically with TypeScript. Build infrastructure as code with type safety and best practices built-in.
 
 ## Features
