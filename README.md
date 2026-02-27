@@ -1,16 +1,24 @@
 # @dcyfr/ai-kubernetes
 
+> **⚠️ PACKAGE DEPRECATED ON NPM (February 27, 2026)**  
+> This package has been deprecated and will be consolidated into future agent knowledge capabilities.  
+> **Last published version:** v1.0.1  
+> **Alternatives for Kubernetes IaC:**
+> - [Pulumi](https://www.pulumi.com/) - TypeScript Kubernetes infrastructure  
+> - [CDK8s](https://cdk8s.io/) - TypeScript Kubernetes manifests by AWS  
+> - [Helm](https://helm.sh/) - Standard Kubernetes package manager
+> - Fork this repo if you need the functionality as-is
+>
+> This package is now marked `"private": true` to prevent future publication.  
+> Content will be integrated into DCYFR agent knowledge capabilities (2026 roadmap).
+
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/dcyfr/dcyfr-ai-kubernetes)
 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-1.28+-326CE5?style=flat-square&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
-[![Helm](https://img.shields.io/badge/Helm-Charts-0F1689?style=flat-square&logo=helm&logoColor=white)](https://helm.sh/)
-[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
-[![YAML](https://img.shields.io/badge/Config-YAML-CB171E?style=flat-square&logo=yaml&logoColor=white)](https://yaml.org/)
-[![Template](https://img.shields.io/badge/Template-Starter-blue?style=flat-square&logo=github)](https://github.com/dcyfr)
-[![Sponsor](https://img.shields.io/badge/sponsor-30363D?style=flat-square&logo=GitHub-Sponsors&logoColor=#EA4AAA)](https://github.com/sponsors/dcyfr)
+[![Status](https://img.shields.io/badge/Status-Deprecated-red?style=flat-square)](https://github.com/dcyfr/dcyfr-ai-kubernetes)
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
 
-**Production-ready Kubernetes deployment template** — Generate, validate, and manage K8s manifests and Helm charts programmatically with TypeScript. Build infrastructure as code with type safety and best practices built-in.
+~~Production-ready Kubernetes deployment template~~ **DEPRECATED: Use Pulumi or CDK8s**
 
 ## Features
 
