@@ -1,7 +1,8 @@
 {
   "name": "@dcyfr/ai-kubernetes",
+  "private": true,
   "version": "1.0.1",
-  "description": "Kubernetes deployment toolkit — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
+  "description": "Kubernetes deployment toolkit \u2014 generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -35,11 +36,7 @@
     "test:coverage": "vitest run --coverage",
     "lint": "tsc --noEmit",
     "typecheck": "tsc --noEmit",
-    "clean": "rm -rf dist",
-    "changeset": "changeset",
-    "changeset:version": "changeset version",
-    "changeset:publish": "changeset publish",
-    "release": "npm run build && changeset publish"
+    "clean": "rm -rf dist"
   },
   "keywords": [
     "kubernetes",
