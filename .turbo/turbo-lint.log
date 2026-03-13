@@ -1,0 +1,6 @@
+
+
+> @dcyfr/ai-kubernetes@1.0.1 lint
+> node scripts/lint.mjs --cache --cache-location .cache/eslint
+
+⠙[1G[0K⠙[1G[0K

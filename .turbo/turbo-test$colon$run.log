@@ -1,0 +1,57 @@
+
+
+> @dcyfr/ai-kubernetes@1.0.1 test:run
+> vitest run
+
+[?25l
+[1m[46m RUN [49m[22m [36mv4.0.18 [39m[90m/home/drew/code/dcyfr-workspace/dcyfr-ai-kubernetes[39m
+
+[?2026h
+[1m[33m ❯ [39m[22mtests/manifests.test.ts[2m [queued][22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m[1m[32m0 passed[39m[22m[90m (0)[39m
+[2m   Start at [22m23:32:43
+[2m   Duration [22m100ms
+[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K
+[1m[33m ❯ [39m[22mtests/health.test.ts[2m [queued][22m
+[1m[33m ❯ [39m[22mtests/helm.test.ts[2m [queued][22m
+[1m[33m ❯ [39m[22mtests/manifests.test.ts[2m [queued][22m
+[1m[33m ❯ [39m[22mtests/types.test.ts[2m [queued][22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m[1m[32m0 passed[39m[22m[90m (0)[39m
+[2m   Start at [22m23:32:43
+[2m   Duration [22m268ms
+[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K
+[1m[33m ❯ [39m[22mtests/health.test.ts[2m [queued][22m
+[1m[33m ❯ [39m[22mtests/helm.test.ts[2m [queued][22m
+[1m[33m ❯ [39m[22mtests/manifests.test.ts[2m [queued][22m
+[1m[33m ❯ [39m[22mtests/types.test.ts[2m 0/29[22m
+[1m[33m ❯ [39m[22mtests/utils.test.ts[2m [queued][22m
+
+[2m Test Files [22m[1m[32m0 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m[1m[32m0 passed[39m[22m[90m (29)[39m
+[2m   Start at [22m23:32:43
+[2m   Duration [22m371ms
+[?2026l[?2026h[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K [32m✓[39m tests/types.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/health.test.ts [2m([22m[2m27 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/helm.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+
+
+[1m[33m ❯ [39m[22mtests/manifests.test.ts[2m [queued][22m
+[1m[33m ❯ [39m[22mtests/utils.test.ts[2m 0/34[22m
+
+[2m Test Files [22m[1m[32m3 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m[1m[32m78 passed[39m[22m[90m (112)[39m
+[2m   Start at [22m23:32:43
+[2m   Duration [22m578ms
+[?2026l[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K [32m✓[39m tests/utils.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m tests/manifests.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m146 passed[39m[22m[90m (146)[39m
+[2m   Start at [22m 23:32:43
+[2m   Duration [22m 655ms[2m (transform 1.29s, setup 0ms, import 1.75s, tests 96ms, environment 1ms)[22m
+
+[?25h⠙[1G[0K

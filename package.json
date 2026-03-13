@@ -34,7 +34,7 @@
     "test:run": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "lint": "tsc --noEmit",
+    "lint": "node scripts/lint.mjs",
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
