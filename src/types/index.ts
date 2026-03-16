@@ -12,8 +12,8 @@ import { z } from 'zod';
 export const MetadataSchema = z.object({
   name: z.string().min(1).max(253),
   namespace: z.string().min(1).max(63).optional(),
-  labels: z.record(z.string()).optional(),
-  annotations: z.record(z.string()).optional(),
+  labels: z.record(z.string(), z.string()).optional(),
+  annotations: z.record(z.string(), z.string()).optional(),
 });
 export type Metadata = z.infer<typeof MetadataSchema>;
 
@@ -145,7 +145,7 @@ export const PodTemplateSpecSchema = z.object({
     volumes: z.array(VolumeSchema).optional(),
     restartPolicy: z.enum(['Always', 'OnFailure', 'Never']).default('Always'),
     serviceAccountName: z.string().optional(),
-    nodeSelector: z.record(z.string()).optional(),
+    nodeSelector: z.record(z.string(), z.string()).optional(),
     tolerations: z
       .array(
         z.object({
@@ -171,7 +171,7 @@ export const DeploymentSchema = z.object({
   spec: z.object({
     replicas: z.number().int().min(0).default(1),
     selector: z.object({
-      matchLabels: z.record(z.string()),
+      matchLabels: z.record(z.string(), z.string()),
     }),
     template: PodTemplateSpecSchema,
     strategy: z
@@ -211,7 +211,7 @@ export const ServiceSchema = z.object({
     type: z
       .enum(['ClusterIP', 'NodePort', 'LoadBalancer', 'ExternalName'])
       .default('ClusterIP'),
-    selector: z.record(z.string()),
+    selector: z.record(z.string(), z.string()),
     ports: z.array(ServicePortSchema).min(1),
     clusterIP: z.string().optional(),
     externalTrafficPolicy: z.enum(['Cluster', 'Local']).optional(),
@@ -227,8 +227,8 @@ export const ConfigMapSchema = z.object({
   apiVersion: z.literal('v1').default('v1'),
   kind: z.literal('ConfigMap').default('ConfigMap'),
   metadata: MetadataSchema,
-  data: z.record(z.string()).optional(),
-  binaryData: z.record(z.string()).optional(),
+  data: z.record(z.string(), z.string()).optional(),
+  binaryData: z.record(z.string(), z.string()).optional(),
 });
 export type ConfigMap = z.infer<typeof ConfigMapSchema>;
 
@@ -240,8 +240,8 @@ export const SecretSchema = z.object({
   type: z
     .enum(['Opaque', 'kubernetes.io/tls', 'kubernetes.io/dockerconfigjson'])
     .default('Opaque'),
-  data: z.record(z.string()).optional(),
-  stringData: z.record(z.string()).optional(),
+  data: z.record(z.string(), z.string()).optional(),
+  stringData: z.record(z.string(), z.string()).optional(),
 });
 export type Secret = z.infer<typeof SecretSchema>;
 
@@ -368,14 +368,14 @@ export const HelmChartSchema = z.object({
   description: z.string().optional(),
   type: z.enum(['application', 'library']).default('application'),
   keywords: z.array(z.string()).optional(),
-  home: z.string().url().optional(),
-  sources: z.array(z.string().url()).optional(),
+  home: z.url().optional(),
+  sources: z.array(z.url()).optional(),
   maintainers: z
     .array(
       z.object({
         name: z.string(),
-        email: z.string().email().optional(),
-        url: z.string().url().optional(),
+        email: z.email().optional(),
+        url: z.url().optional(),
       })
     )
     .optional(),
@@ -434,9 +434,9 @@ export const HelmValuesSchema = z.object({
       targetMemoryUtilizationPercentage: z.number().int().optional(),
     })
     .optional(),
-  nodeSelector: z.record(z.string()).optional(),
+  nodeSelector: z.record(z.string(), z.string()).optional(),
   tolerations: z.array(z.unknown()).optional(),
-  affinity: z.record(z.unknown()).optional(),
+  affinity: z.record(z.string(), z.unknown()).optional(),
 });
 export type HelmValues = z.infer<typeof HelmValuesSchema>;
 
