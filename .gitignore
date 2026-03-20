@@ -4,3 +4,4 @@ dist/
 *.tgz
 charts/*/charts/
 coverage/
+.turbo/*.log
