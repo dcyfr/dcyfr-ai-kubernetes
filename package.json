@@ -2,7 +2,7 @@
   "name": "@dcyfr/ai-kubernetes",
   "private": true,
   "version": "1.0.1",
-  "description": "Kubernetes deployment toolkit \u2014 generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
+  "description": "Kubernetes deployment toolkit — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -48,12 +48,16 @@
     "ai",
     "devops"
   ],
-  "author": "DCYFR <hello@dcyfr.ai>",
+  "author": "DCYFR Labs",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/dcyfr/dcyfr-ai-kubernetes"
   },
+  "bugs": {
+    "url": "https://github.com/dcyfr/dcyfr-ai-kubernetes/issues"
+  },
+  "homepage": "https://github.com/dcyfr/dcyfr-ai-kubernetes#readme",
   "dependencies": {
     "zod": "^4.3.6"
   },

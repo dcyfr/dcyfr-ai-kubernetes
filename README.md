@@ -4,8 +4,9 @@
 > This package has been deprecated and will be consolidated into future agent knowledge capabilities.  
 > **Last published version:** v1.0.1  
 > **Alternatives for Kubernetes IaC:**
-> - [Pulumi](https://www.pulumi.com/) - TypeScript Kubernetes infrastructure  
-> - [CDK8s](https://cdk8s.io/) - TypeScript Kubernetes manifests by AWS  
+>
+> - [Pulumi](https://www.pulumi.com/) - TypeScript Kubernetes infrastructure
+> - [CDK8s](https://cdk8s.io/) - TypeScript Kubernetes manifests by AWS
 > - [Helm](https://helm.sh/) - Standard Kubernetes package manager
 > - Fork this repo if you need the functionality as-is
 >
@@ -20,9 +21,19 @@
 
 ~~Production-ready Kubernetes deployment template~~ **DEPRECATED: Use Pulumi or CDK8s**
 
+## About DCYFR
+
+`@dcyfr/ai-kubernetes` is maintained by **DCYFR Labs** as part of the DCYFR infrastructure toolkit portfolio.
+
+- **DCYFR** is a registered trademark of DCYFR Labs.
+- Primary domain: [www.dcyfr.ai](https://www.dcyfr.ai)
+- Trademark guidance: [../TRADEMARK.md](../TRADEMARK.md)
+- Licensing details: [LICENSE](./LICENSE)
+
 ## Features
 
 ### Manifest Generation
+
 - **Deployment Builder** — Create deployments with replicas, rolling updates, health probes
 - **Service Types** — ClusterIP, NodePort, LoadBalancer, headless services
 - **ConfigMap & Secret** — Configuration management with TLS secret helpers
@@ -31,17 +42,20 @@
 - **HPA (Horizontal Pod Autoscaler)** — CPU, memory, custom metric autoscaling
 
 ### Helm Charts
+
 - **Chart Generation** — Chart.yaml, values.yaml, template rendering
 - **Dependency Management** — Add chart dependencies, version constraints
 - **Template Functions** — Deployment, service, ingress templates
 
 ### Health & Resources
+
 - **Health Probes** — HTTP, TCP, exec probes with customizable parameters
 - **Resource Profiles** — Predefined small/medium/large/AI resource configurations
 - **CPU & Memory Parsing** — Parse Kubernetes resource units (100m, 1Gi)
 - **Resource Validation** — Validate requests don't exceed limits
 
 ### Utilities
+
 - **YAML Serialization** — Convert JavaScript objects to K8s YAML
 - **Multi-Doc YAML** — Output multiple manifests in single file
 - **Manifest Validation** — Validate deployments, services, ingresses
@@ -64,14 +78,14 @@ import {
   mediumResources,
   setResources,
   toYAML,
-} from '@dcyfr/ai-kubernetes';
+} from "@dcyfr/ai-kubernetes";
 
 // Create deployment with health checks and resources
 const probes = standardProbes(3000);
 let deployment = createDeployment({
-  name: 'my-app',
-  namespace: 'production',
-  image: 'node:20',
+  name: "my-app",
+  namespace: "production",
+  image: "node:20",
   replicas: 3,
   port: 3000,
   livenessProbe: probes.livenessProbe,
@@ -81,11 +95,11 @@ deployment = setResources(deployment, mediumResources());
 
 // Create LoadBalancer service
 const service = createService({
-  name: 'my-app',
-  namespace: 'production',
+  name: "my-app",
+  namespace: "production",
   port: 80,
   targetPort: 3000,
-  type: 'LoadBalancer',
+  type: "LoadBalancer",
 });
 
 // Output YAML manifests
@@ -126,65 +140,105 @@ Comprehensive guides for production Kubernetes deployments:
 
 ```typescript
 import {
-  createDeployment, setReplicas, addContainer, setResources, setStrategy,
-  createService, clusterIPService, nodePortService, loadBalancerService,
-  createConfigMap, createSecret, tlsSecret,
-  createIngress, addIngressRule, addIngressTLS,
-  createNamespace, appNamespace,
-  createHPA, setCPUTarget, setMemoryTarget,
-} from '@dcyfr/ai-kubernetes/manifests';
+  createDeployment,
+  setReplicas,
+  addContainer,
+  setResources,
+  setStrategy,
+  createService,
+  clusterIPService,
+  nodePortService,
+  loadBalancerService,
+  createConfigMap,
+  createSecret,
+  tlsSecret,
+  createIngress,
+  addIngressRule,
+  addIngressTLS,
+  createNamespace,
+  appNamespace,
+  createHPA,
+  setCPUTarget,
+  setMemoryTarget,
+} from "@dcyfr/ai-kubernetes/manifests";
 ```
 
 ### Helm (`@dcyfr/ai-kubernetes/helm`)
 
 ```typescript
 import {
-  createChart, addDependency,
-  createValues, setAutoscaling, setIngress,
-  renderTemplate, deploymentTemplate, serviceTemplate,
-} from '@dcyfr/ai-kubernetes/helm';
+  createChart,
+  addDependency,
+  createValues,
+  setAutoscaling,
+  setIngress,
+  renderTemplate,
+  deploymentTemplate,
+  serviceTemplate,
+} from "@dcyfr/ai-kubernetes/helm";
 ```
 
 ### Health (`@dcyfr/ai-kubernetes/health`)
 
 ```typescript
 import {
-  httpProbe, tcpProbe, execProbe,
-  livenessProbe, readinessProbe, startupProbe, standardProbes,
-  smallResources, mediumResources, largeResources, aiResources,
-  parseCPU, parseMemory, validateResources,
-} from '@dcyfr/ai-kubernetes/health';
+  httpProbe,
+  tcpProbe,
+  execProbe,
+  livenessProbe,
+  readinessProbe,
+  startupProbe,
+  standardProbes,
+  smallResources,
+  mediumResources,
+  largeResources,
+  aiResources,
+  parseCPU,
+  parseMemory,
+  validateResources,
+} from "@dcyfr/ai-kubernetes/health";
 ```
 
 ### Utils (`@dcyfr/ai-kubernetes/utils`)
 
 ```typescript
 import {
-  toYAML, toMultiDocYAML,
-  validateDeployment, validateService, validateManifest,
-  standardLabels, appLabels, isValidLabelKey,
-} from '@dcyfr/ai-kubernetes/utils';
+  toYAML,
+  toMultiDocYAML,
+  validateDeployment,
+  validateService,
+  validateManifest,
+  standardLabels,
+  appLabels,
+  isValidLabelKey,
+} from "@dcyfr/ai-kubernetes/utils";
 ```
 
 ## Resource Profiles
 
-| Profile | CPU Request | CPU Limit | Memory Request | Memory Limit | Best For |
-|---------|-------------|-----------|----------------|--------------|----------|
-| **small** | 50m | 200m | 64Mi | 256Mi | Sidecars, simple services |
-| **medium** | 250m | 500m | 256Mi | 512Mi | Standard web apps, APIs |
-| **large** | 500m | 1000m | 512Mi | 1Gi | High-traffic apps, databases |
-| **ai** | 1000m | 4000m | 2Gi | 8Gi | ML models, AI workloads |
+| Profile    | CPU Request | CPU Limit | Memory Request | Memory Limit | Best For                     |
+| ---------- | ----------- | --------- | -------------- | ------------ | ---------------------------- |
+| **small**  | 50m         | 200m      | 64Mi           | 256Mi        | Sidecars, simple services    |
+| **medium** | 250m        | 500m      | 256Mi          | 512Mi        | Standard web apps, APIs      |
+| **large**  | 500m        | 1000m     | 512Mi          | 1Gi          | High-traffic apps, databases |
+| **ai**     | 1000m       | 4000m     | 2Gi            | 8Gi          | ML models, AI workloads      |
 
 ```typescript
-import { smallResources, mediumResources, largeResources, aiResources, setResources } from '@dcyfr/ai-kubernetes';
+import {
+  smallResources,
+  mediumResources,
+  largeResources,
+  aiResources,
+  setResources,
+} from "@dcyfr/ai-kubernetes";
 
 // Apply resource profile to deployment
 deployment = setResources(deployment, mediumResources());
 
 // Custom resources
 deployment = setResources(deployment, {
-  requests: { cpu: '100m', memory: '128Mi' },
-  limits: { cpu: '500m', memory: '512Mi' },
+  requests: { cpu: "100m", memory: "128Mi" },
+  limits: { cpu: "500m", memory: "512Mi" },
 });
 ```
 
@@ -193,33 +247,39 @@ deployment = setResources(deployment, {
 ### Production Deployment with HPA
 
 ```typescript
-import { createDeployment, createService, createHPA, setCPUTarget, toMultiDocYAML } from '@dcyfr/ai-kubernetes';
+import {
+  createDeployment,
+  createService,
+  createHPA,
+  setCPUTarget,
+  toMultiDocYAML,
+} from "@dcyfr/ai-kubernetes";
 
 // Deployment
 const deployment = createDeployment({
-  name: 'api-server',
-  namespace: 'production',
-  image: 'myregistry.io/api:v1.0.0',
+  name: "api-server",
+  namespace: "production",
+  image: "myregistry.io/api:v1.0.0",
   replicas: 5,
   port: 8080,
-  livenessProbe: httpProbe('/health', 8080, 30, 10),
-  readinessProbe: httpProbe('/ready', 8080, 5, 5),
+  livenessProbe: httpProbe("/health", 8080, 30, 10),
+  readinessProbe: httpProbe("/ready", 8080, 5, 5),
 });
 
 // Service
 const service = createService({
-  name: 'api-server',
-  namespace: 'production',
+  name: "api-server",
+  namespace: "production",
   port: 80,
   targetPort: 8080,
-  type: 'ClusterIP',
+  type: "ClusterIP",
 });
 
 // Horizontal Pod Autoscaler
 let hpa = createHPA({
-  name: 'api-server-hpa',
-  namespace: 'production',
-  targetRef: { apiVersion: 'apps/v1', kind: 'Deployment', name: 'api-server' },
+  name: "api-server-hpa",
+  namespace: "production",
+  targetRef: { apiVersion: "apps/v1", kind: "Deployment", name: "api-server" },
   minReplicas: 3,
   maxReplicas: 20,
 });
@@ -232,63 +292,70 @@ console.log(toMultiDocYAML([deployment, service, hpa]));
 ### Database with Persistent Storage
 
 ```typescript
-import { createDeployment, createService } from '@dcyfr/ai-kubernetes';
+import { createDeployment, createService } from "@dcyfr/ai-kubernetes";
 
 const postgres = createDeployment({
-  name: 'postgres',
-  namespace: 'production',
-  image: 'postgres:16',
+  name: "postgres",
+  namespace: "production",
+  image: "postgres:16",
   replicas: 1,
   port: 5432,
   env: [
-    { name: 'POSTGRES_PASSWORD', valueFrom: { secretKeyRef: { name: 'db-secrets', key: 'password' } } },
+    {
+      name: "POSTGRES_PASSWORD",
+      valueFrom: { secretKeyRef: { name: "db-secrets", key: "password" } },
+    },
   ],
   volumes: [
     {
-      name: 'postgres-data',
-      persistentVolumeClaim: { claimName: 'postgres-pvc' },
+      name: "postgres-data",
+      persistentVolumeClaim: { claimName: "postgres-pvc" },
     },
   ],
   volumeMounts: [
     {
-      name: 'postgres-data',
-      mountPath: '/var/lib/postgresql/data',
+      name: "postgres-data",
+      mountPath: "/var/lib/postgresql/data",
     },
   ],
 });
 
 const dbService = createService({
-  name: 'postgres',
-  namespace: 'production',
+  name: "postgres",
+  namespace: "production",
   port: 5432,
   targetPort: 5432,
-  type: 'ClusterIP',
+  type: "ClusterIP",
 });
 ```
 
 ### Ingress with TLS
 
 ```typescript
-import { createIngress, addIngressRule, addIngressTLS } from '@dcyfr/ai-kubernetes';
+import {
+  createIngress,
+  addIngressRule,
+  addIngressTLS,
+} from "@dcyfr/ai-kubernetes";
 
 let ingress = createIngress({
-  name: 'web-ingress',
-  namespace: 'production',
+  name: "web-ingress",
+  namespace: "production",
   annotations: {
-    'kubernetes.io/ingress.class': 'nginx',
-    'cert-manager.io/cluster-issuer': 'letsencrypt-prod',
+    "kubernetes.io/ingress.class": "nginx",
+    "cert-manager.io/cluster-issuer": "letsencrypt-prod",
   },
 });
 
 ingress = addIngressRule(ingress, {
-  host: 'example.com',
+  host: "example.com",
   http: {
     paths: [
       {
-        path: '/',
-        pathType: 'Prefix',
+        path: "/",
+        pathType: "Prefix",
         backend: {
-          service: { name: 'web-app', port: { number: 80 } },
+          service: { name: "web-app", port: { number: 80 } },
         },
       },
     ],
@@ -296,8 +363,8 @@ ingress = addIngressRule(ingress, {
 });
 
 ingress = addIngressTLS(ingress, {
-  hosts: ['example.com'],
-  secretName: 'example-com-tls',
+  hosts: ["example.com"],
+  secretName: "example-com-tls",
 });
 
 console.log(toYAML(ingress));
@@ -306,20 +373,20 @@ console.log(toYAML(ingress));
 ### ConfigMap for Application Config
 
 ```typescript
-import { createConfigMap } from '@dcyfr/ai-kubernetes';
+import { createConfigMap } from "@dcyfr/ai-kubernetes";
 
 const appConfig = createConfigMap({
-  name: 'app-config',
-  namespace: 'production',
+  name: "app-config",
+  namespace: "production",
   data: {
-    'app.conf': `
+    "app.conf": `
 server:
   port: 8080
   timeout: 30s
 logging:
   level: info
 `,
-    'database.conf': `
+    "database.conf": `
 host: postgres.production.svc.cluster.local
 port: 5432
 pool_size: 20
@@ -331,59 +398,65 @@ pool_size: 20
 ### Secrets Management
 
 ```typescript
-import { createSecret, tlsSecret } from '@dcyfr/ai-kubernetes';
+import { createSecret, tlsSecret } from "@dcyfr/ai-kubernetes";
 
 // Generic secret
 const dbSecret = createSecret({
-  name: 'db-credentials',
-  namespace: 'production',
-  type: 'Opaque',
+  name: "db-credentials",
+  namespace: "production",
+  type: "Opaque",
   stringData: {
-    username: 'admin',
-    password: 'super-secret-password',
-    url: 'postgresql://admin:password@postgres:5432/mydb',
+    username: "admin",
+    password: "super-secret-password",
+    url: "postgresql://admin:password@postgres:5432/mydb",
   },
 });
 
 // TLS certificate secret
 const tlsCert = tlsSecret({
-  name: 'api-tls',
-  namespace: 'production',
-  cert: '-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----',
-  key: '-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----',
+  name: "api-tls",
+  namespace: "production",
+  cert: "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+  key: "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----",
 });
 ```
 
 ## Helm Chart Generation
 
 ```typescript
-import { createChart, addDependency, createValues, setAutoscaling, renderTemplate } from '@dcyfr/ai-kubernetes/helm';
+import {
+  createChart,
+  addDependency,
+  createValues,
+  setAutoscaling,
+  renderTemplate,
+} from "@dcyfr/ai-kubernetes/helm";
 
 // Create Chart.yaml
 const chart = createChart({
-  name: 'my-app',
-  version: '1.0.0',
-  appVersion: '1.0.0',
-  description: 'My Application Helm Chart',
+  name: "my-app",
+  version: "1.0.0",
+  appVersion: "1.0.0",
+  description: "My Application Helm Chart",
 });
 
 // Add chart dependencies
 chart = addDependency(chart, {
-  name: 'postgresql',
-  version: '12.x.x',
-  repository: 'https://charts.bitnami.com/bitnami',
+  name: "postgresql",
+  version: "12.x.x",
+  repository: "https://charts.bitnami.com/bitnami",
 });
 
 // Create values.yaml
 let values = createValues({
   replicaCount: 3,
   image: {
-    repository: 'myregistry.io/my-app',
-    tag: 'v1.0.0',
-    pullPolicy: 'IfNotPresent',
+    repository: "myregistry.io/my-app",
+    tag: "v1.0.0",
+    pullPolicy: "IfNotPresent",
   },
   service: {
-    type: 'ClusterIP',
+    type: "ClusterIP",
     port: 80,
   },
 });
@@ -397,7 +470,7 @@ values = setAutoscaling(values, {
 });
 
 // Render deployment template
-const deploymentTemplate = renderTemplate('deployment', values);
+const deploymentTemplate = renderTemplate("deployment", values);
 ```
 
 ## Advanced Features
@@ -405,57 +478,61 @@ const deploymentTemplate = renderTemplate('deployment', values);
 ### Custom Health Probes
 
 ```typescript
-import { httpProbe, tcpProbe, execProbe } from '@dcyfr/ai-kubernetes/health';
+import { httpProbe, tcpProbe, execProbe } from "@dcyfr/ai-kubernetes/health";
 
 // HTTP probe
-const liveness = httpProbe('/health', 8080, 30, 10, 3, 3);
+const liveness = httpProbe("/health", 8080, 30, 10, 3, 3);
 
 // TCP probe
 const readiness = tcpProbe(5432, 5, 5, 3);
 
 // Exec probe
-const startup = execProbe(['pg_isready', '-U', 'postgres'], 10, 5, 30);
+const startup = execProbe(["pg_isready", "-U", "postgres"], 10, 5, 30);
 ```
 
 ### Custom Resource Parsing
 
 ```typescript
-import { parseCPU, parseMemory, validateResources } from '@dcyfr/ai-kubernetes/health';
+import {
+  parseCPU,
+  parseMemory,
+  validateResources,
+} from "@dcyfr/ai-kubernetes/health";
 
 // Parse CPU units
-parseCPU('100m');  // 0.1
-parseCPU('1.5');   // 1.5
-parseCPU('2000m'); // 2
+parseCPU("100m"); // 0.1
+parseCPU("1.5"); // 1.5
+parseCPU("2000m"); // 2
 
 // Parse memory units
-parseMemory('128Mi');  // 134217728 bytes
-parseMemory('1Gi');    // 1073741824 bytes
-parseMemory('512Mi');  // 536870912 bytes
+parseMemory("128Mi"); // 134217728 bytes
+parseMemory("1Gi"); // 1073741824 bytes
+parseMemory("512Mi"); // 536870912 bytes
 
 // Validate resources
 const isValid = validateResources({
-  requests: { cpu: '100m', memory: '128Mi' },
-  limits: { cpu: '500m', memory: '512Mi' },
+  requests: { cpu: "100m", memory: "128Mi" },
+  limits: { cpu: "500m", memory: "512Mi" },
 });
 ```
 
 ### Rolling Update Strategy
 
 ```typescript
-import { createDeployment, setStrategy } from '@dcyfr/ai-kubernetes/manifests';
+import { createDeployment, setStrategy } from "@dcyfr/ai-kubernetes/manifests";
 
 let deployment = createDeployment({
-  name: 'api-server',
-  image: 'myapp:v2.0.0',
+  name: "api-server",
+  image: "myapp:v2.0.0",
   replicas: 10,
   port: 8080,
 });
 
 deployment = setStrategy(deployment, {
-  type: 'RollingUpdate',
+  type: "RollingUpdate",
   rollingUpdate: {
-    maxSurge: '25%',        // Max 25% extra pods during update
-    maxUnavailable: '10%',  // Max 10% pods unavailable during update
+    maxSurge: "25%", // Max 25% extra pods during update
+    maxUnavailable: "10%", // Max 10% pods unavailable during update
   },
 });
 ```
@@ -469,6 +546,7 @@ This template includes comprehensive example deployments:
 - **[examples/microservices/](examples/microservices/)** — Multi-service architecture with HPA and network policies
 
 Run examples:
+
 ```bash
 cd examples/web-app
 node generate-manifests.ts
@@ -539,14 +617,14 @@ See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for complete platform deployment gu
 
 ```typescript
 const deployment = createDeployment({
-  name: 'api-server',
-  image: 'myapp:latest',
+  name: "api-server",
+  image: "myapp:latest",
   replicas: 3,
   port: 8080,
   annotations: {
-    'prometheus.io/scrape': 'true',
-    'prometheus.io/port': '8080',
-    'prometheus.io/path': '/metrics',
+    "prometheus.io/scrape": "true",
+    "prometheus.io/port": "8080",
+    "prometheus.io/path": "/metrics",
   },
 });
 ```
@@ -554,17 +632,17 @@ const deployment = createDeployment({
 ### Liveness & Readiness Probes
 
 ```typescript
-import { standardProbes } from '@dcyfr/ai-kubernetes';
+import { standardProbes } from "@dcyfr/ai-kubernetes";
 
 // Get preconfigured probes for HTTP server
 const { livenessProbe, readinessProbe } = standardProbes(8080);
 
 const deployment = createDeployment({
-  name: 'api-server',
-  image: 'myapp:latest',
+  name: "api-server",
+  image: "myapp:latest",
   replicas: 3,
   port: 8080,
-  livenessProbe,  // Checks if app is alive (restart if fails)
+  livenessProbe, // Checks if app is alive (restart if fails)
   readinessProbe, // Checks if app is ready for traffic (remove from load balancer if fails)
 });
 ```
@@ -577,8 +655,8 @@ See [docs/MONITORING.md](docs/MONITORING.md) for Prometheus +Grafana setup, ELK 
 
 ```typescript
 const deployment = createDeployment({
-  name: 'secure-app',
-  image: 'myapp:latest',
+  name: "secure-app",
+  image: "myapp:latest",
   replicas: 3,
   port: 8080,
   securityContext: {
@@ -590,7 +668,7 @@ const deployment = createDeployment({
     allowPrivilegeEscalation: false,
     readOnlyRootFilesystem: true,
     capabilities: {
-      drop: ['ALL'],
+      drop: ["ALL"],
     },
   },
 });
@@ -645,7 +723,7 @@ Before deploying to production:
 ## Resource Profiles
 
 | Profile | CPU Request | CPU Limit | Memory Request | Memory Limit |
-|---------|-------------|-----------|----------------|--------------|
+| ------- | ----------- | --------- | -------------- | ------------ |
 | small   | 50m         | 200m      | 64Mi           | 256Mi        |
 | medium  | 250m        | 500m      | 256Mi          | 512Mi        |
 | large   | 500m        | 1000m     | 512Mi          | 1Gi          |
