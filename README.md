@@ -1,5 +1,13 @@
 # @dcyfr/ai-kubernetes
 
+<!-- README-META
+  tlp_clearance: GREEN
+  status: deprecated
+  name: dcyfr-ai-kubernetes
+  description: Kubernetes deployment toolkit — generate, validate, and manage K8s manifests and Helm charts with @dcyfr/ai
+  last_validated: 2026-03-29
+-->
+
 > **⚠️ PACKAGE DEPRECATED ON NPM (February 27, 2026)**  
 > This package has been deprecated and will be consolidated into future agent knowledge capabilities.  
 > **Last published version:** v1.0.1  
