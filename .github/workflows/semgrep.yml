@@ -24,7 +24,13 @@ jobs:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Run Semgrep
-        run: semgrep ci
+        # The weekly full-repo sweep was being SIGKILLed (exit 137) partway through
+        # loading the ~85k Supply Chain rules: the hosted-runner image bump on
+        # 2026-07-20 left the job short of memory, and every scheduled run in every
+        # repo has failed since. Dependabot already owns supply-chain alerting here,
+        # so the cron scans Code (SAST) only. PR runs are diff-scans, small enough
+        # to keep both products, and remain the pre-merge gate.
+        run: semgrep ci ${{ github.event_name == 'schedule' && '--code' || '' }}
         env:
           # When set, fetches rules from semgrep.dev org and uploads findings
           # to the dashboard. When unset, falls back to the auto config
