@@ -1,0 +1,43 @@
+name: Dependabot auto-merge sweep
+
+# Thin caller: real logic lives in dcyfr-labs/.github.
+#
+# WHY THIS EXISTS. PR mode (dependabot-auto-merge.yml) only fires on
+# `opened | synchronize | reopened`. The supply-chain cooldown WITHHOLDS a bump
+# by exiting SUCCESS with just a `::notice::`, so a PR withheld on day 0 is
+# never re-examined on day 8 when the cooldown expires - the job was green, the
+# PR is mergeable, and nothing is watching. This sweep re-runs those withheld
+# runs daily so the cooldown clears itself.
+#
+# ⚠️ ALL THREE permissions below are required by the reusable workflow's caller
+# contract; `actions: write` is the one `gh run rerun` needs. A caller granting
+# less dies at `startup_failure`, which is SILENT: no check run, no annotation,
+# nothing red. That exact mistake stranded 73 PRs across 20 repos for 5 days
+# (2026-08-31 - 2026-09-05). If you change these, confirm a run actually
+# reached a step - never infer health from the absence of a failure.
+#
+# No `with:` block on purpose. The reusable input `sweep-max-prs` defaults to
+# 50, comfortably above the busiest repo's backlog, and a caller-side override
+# would have to be an expression over the trigger context - which cannot be
+# exercised until this file is already on the default branch. Not worth a
+# failure mode that only shows up in production.
+#
+# The cron minute is staggered per repo so 20 repos do not all fire at once.
+
+on:
+  schedule:
+    - cron: '24 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  sweep:
+    uses: dcyfr-labs/.github/.github/workflows/dependabot-auto-merge-sweep.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
