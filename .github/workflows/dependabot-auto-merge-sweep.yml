@@ -7,7 +7,7 @@ name: Dependabot auto-merge sweep
 # by exiting SUCCESS with just a `::notice::`, so a PR withheld on day 0 is
 # never re-examined on day 8 when the cooldown expires - the job was green, the
 # PR is mergeable, and nothing is watching. This sweep re-runs those withheld
-# runs daily so the cooldown clears itself.
+# runs so the cooldown clears itself.
 #
 # ⚠️ ALL THREE permissions below are required by the reusable workflow's caller
 # contract; `actions: write` is the one `gh run rerun` needs. A caller granting
@@ -22,11 +22,17 @@ name: Dependabot auto-merge sweep
 # exercised until this file is already on the default branch. Not worth a
 # failure mode that only shows up in production.
 #
-# The cron minute is staggered per repo so 20 repos do not all fire at once.
+# WEEKLY, and spread across the WEEK - not merely across the hour. dcyfr-labs
+# has no self-hosted runners, so every repo here competes for hosted capacity;
+# a merge fan-out on 2026-09-05 queued the whole org for ~20 minutes. Each repo
+# gets its own weekday AND its own minute, so at most three fire on any given
+# day. The cooldown is 7 days, so weekly re-examines a withheld PR within a few
+# days of it becoming eligible - daily was convenience, not a requirement.
+# Run it by hand any time with: gh workflow run "Dependabot auto-merge sweep"
 
 on:
   schedule:
-    - cron: '24 6 * * *'
+    - cron: '2 6 * * 1'
   workflow_dispatch:
 
 permissions:
