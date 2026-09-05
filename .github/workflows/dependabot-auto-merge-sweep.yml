@@ -32,7 +32,7 @@ name: Dependabot auto-merge sweep
 
 on:
   schedule:
-    - cron: '2 6 * * 1'
+    - cron: '24 6 * * 1'
   workflow_dispatch:
 
 permissions:
