@@ -1,8 +1,42 @@
 {
   "repo_notes": [
     {
-      "content": "Kubernetes deployment configurations for DCYFR AI services. Document the Kubernetes manifests, Helm charts, service mesh integration, scaling strategies, and operational patterns for running AI workloads on Kubernetes.",
-      "author": "DCYFR Engineering"
+      "content": "Deprecated on npm as of 2026-02-27, last published v1.0.1. Say so on the first page.",
+      "author": "rei-doc-specialist"
+    },
+    {
+      "content": "Still useful as a reference for typed manifest generation; the manifests/ and helm/ modules are the substance.",
+      "author": "rei-doc-specialist"
+    }
+  ],
+  "pages": [
+    {
+      "title": "Status and Overview",
+      "purpose": "That this package is deprecated, the alternatives named in the README, and what the toolkit still does well."
+    },
+    {
+      "title": "Manifest Generation",
+      "purpose": "The typed manifest builders under src/manifests/: the resources covered, the TypeScript types behind them, and the emitted YAML.",
+      "parent": "Status and Overview"
+    },
+    {
+      "title": "Helm Charts",
+      "purpose": "The Helm support under src/helm/: chart scaffolding, values handling, and templating boundaries.",
+      "parent": "Status and Overview"
+    },
+    {
+      "title": "Health Checks",
+      "purpose": "The health module under src/health/: probes generated into a manifest and the defaults chosen.",
+      "parent": "Status and Overview"
+    },
+    {
+      "title": "Examples",
+      "purpose": "The web-app, microservices and helm-chart examples and what each produces.",
+      "parent": "Status and Overview"
+    },
+    {
+      "title": "Testing and Linting",
+      "purpose": "The Vitest suite and the manifest lint script under scripts/lint.mjs."
     }
   ]
 }
